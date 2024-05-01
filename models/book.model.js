@@ -25,12 +25,22 @@ const BookSchema = mongoose.Schema(
             required: true,
             default: 0
         },
-        time: {
-            type: TimeRanges,
+        start_time: {
+            type: String,
+            required: true,
+            default: 0
+        },
+        end_time: {
+            type: String,
             required: true,
             default: 0
         },
         letter: {
+            type: String,
+            required: true,
+            default: 0
+        },
+        status: {
             type: String,
             required: true,
             default: 0
