@@ -5,12 +5,29 @@ const Book = require("./models/book.model.js");
 const Instance = require("./models/instance.model.js");
 const roomRoute = require("./routes/room.route.js");
 const bookRoute = require("./routes/book.route.js");
-const instanceRoute = require("./routes/instance.route.js")
+const instanceRoute = require("./routes/instance.route.js");
 const app = express();
 
+
+//middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use("/api/rooms", roomRoute);
+//routes
 app.use("/api/books", bookRoute);
-app.use("/api/rooms", instanceRoute);
+app.use("/api/rooms", roomRoute);
+app.use("/api/instances", instanceRoute);
+
+mongoose
+  .connect(
+    "mongodb+srv://fathanahuni:VxHyczHdBiPi4Ts9@backenddb.mi89dpp.mongodb.net/akioAPI?retryWrites=true&w=majority&appName=BackendDB"
+  )
+  .then(() => {
+    console.log("Connected to database!");
+    app.listen(3000, () => {
+      console.log("Server is running on port 3000");
+    });
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });

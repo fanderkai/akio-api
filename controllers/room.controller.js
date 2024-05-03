@@ -12,8 +12,8 @@ const getRooms = async (req, res) => {
 const getRoom = async (req, res) => {
     try {
         const {id} = req.params;
-        const rooms = await Room.findById({id});
-        res.status(200).json(rooms);
+        const room = await Room.findById(id);
+        res.status(200).json(room);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -22,7 +22,7 @@ const getRoom = async (req, res) => {
 const createRoom = async (req, res) => {
     try {
         const room = await Room.create(req.body);
-        res.status(200).json(rooms);
+        res.status(200).json({ message: "Room created" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -31,12 +31,12 @@ const createRoom = async (req, res) => {
 const updateRoom = async (req, res) => {
     try {
         const {id} = req.params;
-        const rooms = await Room.findByIdAndUpdate(id, req.body);
+        const room = await Room.findByIdAndUpdate(id, req.body);
         if(!room) {
             return res.status(404).json({message: "Room not found"});
         }
-        const updatedRoom = await getRoom.findById(id);
-        res.status(200).json(rooms);
+        const updatedRoom = await Room.findById(id);
+        res.status(200).json({ message: "Room updated." });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -45,7 +45,7 @@ const updateRoom = async (req, res) => {
 const deleteRoom = async (req, res) => {
     try {
         const {id} = req.params;
-        const rooms = await Room.findByIdAndDelete(id, req.body);
+        const room = await Room.findByIdAndDelete(id, req.body);
         if(!room) {
             return res.status(404).json({message: "Room not found"});
         }

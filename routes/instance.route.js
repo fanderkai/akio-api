@@ -7,6 +7,6 @@ router.get('/', getInstances);
 router.get('/:id', getInstance);
 router.post("/", createInstance);
 router.put("/:id", updateInstance);
-router.delete(":/id", deleteInstance);
+router.delete("/:id", deleteInstance);
 
 module.exports = router;
