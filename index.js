@@ -1,13 +1,19 @@
 const express = require('express');
 const mongoose = require("mongoose");
+const multer = require('multer');
+
 const Room = require("./models/room.model.js");
 const Book = require("./models/book.model.js");
 const Instance = require("./models/instance.model.js");
 const Account = require("./models/account.model.js");
+const Letter = require("./models/letter.model.js");
+
 const roomRoute = require("./routes/room.route.js");
 const bookRoute = require("./routes/book.route.js");
 const instanceRoute = require("./routes/instance.route.js");
 const authRoute = require("./routes/auth.route.js");
+const letterRoute = require("./routes/letter.route.js");
+
 const app = express();
 
 
@@ -19,6 +25,7 @@ app.use(express.urlencoded({extended: false}));
 app.use("/api/books", bookRoute);
 app.use("/api/rooms", roomRoute);
 app.use("/api/instances", instanceRoute);
+app.use("/api/letters", letterRoute);
 
 app.use("/api/auth", authRoute);
 
