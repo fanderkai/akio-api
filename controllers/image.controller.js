@@ -1,4 +1,4 @@
-const letterUpload = async(req, res) => {
+const imageUpload = async(req, res) => {
     console.log(req.file);
     try{
         res.send({ status: 'success', message: `${req.file.originalname} uploaded!` });
@@ -6,4 +6,4 @@ const letterUpload = async(req, res) => {
         res.send({ status: 'error', message: err.message });
     }
 }
-module.exports = {letterUpload};
+module.exports = {imageUpload};
