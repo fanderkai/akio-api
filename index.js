@@ -1,13 +1,11 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const multer = require('multer');
+const path = require('path');
 
 const roomRoute = require("./routes/room.route.js");
 const bookRoute = require("./routes/book.route.js");
 const instanceRoute = require("./routes/instance.route.js");
 const authRoute = require("./routes/auth.route.js");
-const letterRoute = require("./routes/letter.route.js");
-const imageRoute = require("./routes/image.route.js");
 
 const app = express();
 
@@ -20,10 +18,11 @@ app.use(express.urlencoded({extended: false}));
 app.use("/api/books", bookRoute);
 app.use("/api/rooms", roomRoute);
 app.use("/api/instances", instanceRoute);
-app.use("/api/letters", letterRoute);
-app.use("/api/images", imageRoute);
-
 app.use("/api/auth", authRoute);
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 mongoose
   .connect(

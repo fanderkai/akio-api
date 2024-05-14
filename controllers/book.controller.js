@@ -21,7 +21,9 @@ const getBook = async (req, res) => {
 
 const createBook = async (req, res) => {
     try {
-        const book = await Book.create(req.body);
+        const letter = req.file ? req.file.filename : null;
+        const data = {...req.body, letter};
+        const book = await Book.create(data);
         res.status(200).json({ message: 'Book created.' });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -31,7 +33,9 @@ const createBook = async (req, res) => {
 const updateBook = async (req, res) => {
     try {
         const {id} = req.params;
-        const book = await Book.findByIdAndUpdate(id, req.body);
+        const letter = req.file ? req.file.filename : null;
+        const data = {...req.body, letter};
+        const book = await Book.findByIdAndUpdate(id, data, { new: true });
         if(!book) {
             return res.status(404).json({message: "Booking not found"});
         }
