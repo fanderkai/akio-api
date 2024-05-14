@@ -21,7 +21,9 @@ const getRoom = async (req, res) => {
 
 const createRoom = async (req, res) => {
     try {
-        const room = await Room.create(req.body);
+        const image = req.file ? req.file.filename : null;
+        const data = {...req.body, image};
+        const room = await Room.create(data);
         res.status(200).json({ message: "Room created" });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -31,7 +33,9 @@ const createRoom = async (req, res) => {
 const updateRoom = async (req, res) => {
     try {
         const {id} = req.params;
-        const room = await Room.findByIdAndUpdate(id, req.body);
+        const image = req.file ? req.file.filename : null;
+        const data = {...req.body, image};
+        const room = await Room.findByIdAndUpdate(id, data, { new: true });
         if(!room) {
             return res.status(404).json({message: "Room not found"});
         }
