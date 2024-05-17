@@ -63,6 +63,7 @@ const BookSchema = mongoose.Schema(
             default: 0
         },
         letter: {
+            
             type: String,
             required: true,
             default: 0
