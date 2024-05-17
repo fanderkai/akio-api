@@ -1,26 +1,27 @@
 const mongoose = require('mongoose');
 
 function generateUniqueId(name, startDate, startTime, endTime) {
-    // Ambil tiga huruf pertama dari nama pengaju (jika nama lebih pendek dari 3 karakter, gunakan nama lengkap)
+    // Take the first three characters of the name and convert them to upper case
     const initials = name.substring(0, 3).toUpperCase();
 
-    // Ubah format tanggal menjadi MMDDYY
+    // Change date format to DDMMYY and remove the non-numeric characters
     const formattedDate = startDate.toLocaleDateString('en-US', {
         day: '2-digit',
         month: '2-digit',
         year: '2-digit'
     }).replace(/\//g, '');
 
-    // Ambil dua digit pertama dari jam mulai dan jam berakhir
+    // Take the hour digits of start hour and end hour
     const startHour = (startTime.getHours() < 10 ? '0' : '') + startTime.getHours();
     const endHour = (endTime.getHours() < 10 ? '0' : '') + endTime.getHours();    
 
-    // Gabungkan semua komponen untuk membentuk ID
+    // Combine all with dashes
     const id = `${initials}-${formattedDate}-${startHour}${endHour}`;
     
     return id;
 }
 
+// Create model for booking objects
 const BookSchema = mongoose.Schema(
     {
         id: {
@@ -75,5 +76,6 @@ const BookSchema = mongoose.Schema(
     }
 );
 
+// Export book models
 const Book = mongoose.model("Book", BookSchema);
 module.exports = Book;
