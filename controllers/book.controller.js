@@ -3,8 +3,13 @@ const Book = require('../models/book.model');
 // Take GET bookings request and response with bookings list
 const getBooks = async (req, res) => {
     try {
-        const books = await Book.find({});
-        res.status(200).json(books);
+        const book = await Book.find({});
+        book.forEach(book =>{
+            if(book.letter){
+                book.letterUrl = `${req.protocol}://${req.get('host')}/uploads/letters/${book.letter}`;
+            }
+        });
+        res.status(200).json(book);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -14,8 +19,13 @@ const getBooks = async (req, res) => {
 const getBook = async (req, res) => {
     try {
         const {id} = req.params;
-        const books = await Book.findById(id);
-        res.status(200).json(books);
+        const book = await Book.findById(id);
+        book.forEach(book =>{
+            if(book && book.letter){
+                book.letterUrl = `${req.protocol}://${req.get('host')}/uploads/letters/${book.letter}`;
+            }
+        });
+        res.status(200).json(book);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
