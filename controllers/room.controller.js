@@ -4,6 +4,12 @@ const Room = require('../models/room.model');
 const getRooms = async (req, res) => {
     try {
         const rooms = await Room.find({});
+        rooms.forEach(room=> {
+            if (room.image){
+                room.imageUrl = `${req.protocol}://${req.get('host')}/uploads/images/${room.image}`;
+            }
+            
+        });
         res.status(200).json(rooms);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -15,6 +21,12 @@ const getRoom = async (req, res) => {
     try {
         const {id} = req.params;
         const room = await Room.findById(id);
+        rooms.forEach(room=> {
+            if (room && room.image){
+                room.imageUrl = `${req.protocol}://${req.get('host')}/uploads/images/${room.image}`;
+            }
+            
+        });
         res.status(200).json(room);
     } catch (error) {
         res.status(500).json({ message: error.message });
