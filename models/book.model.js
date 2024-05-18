@@ -51,7 +51,7 @@ const BookSchema = mongoose.Schema(
         date: {
             type: Date,
             required: true,
-            default: 0
+            default: Date.now
         },
         start_time: {
             type: String,

@@ -19,14 +19,24 @@ const getRooms = async (req, res) => {
 // Take GET room id request and response with room details
 const getRoom = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const room = await Room.findById(id);
-        rooms.forEach(room=> {
-            if (room && room.image){
+
+        if (!room) {
+            return res.status(404).json({ message: "Room not found" });
+        }
+
+        if (Array.isArray(room)) {
+            room.forEach(room => {
+                if (room && room.image) {
+                    room.imageUrl = `${req.protocol}://${req.get('host')}/uploads/images/${room.image}`;
+                }
+            });
+        } else {
+            if (room && room.image) {
                 room.imageUrl = `${req.protocol}://${req.get('host')}/uploads/images/${room.image}`;
             }
-            
-        });
+        }
         res.status(200).json(room);
     } catch (error) {
         res.status(500).json({ message: error.message });

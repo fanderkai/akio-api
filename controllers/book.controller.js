@@ -20,11 +20,21 @@ const getBook = async (req, res) => {
     try {
         const {id} = req.params;
         const book = await Book.findById(id);
-        book.forEach(book =>{
-            if(book && book.letter){
+        if (!book) {
+            return res.status(404).json({ message: "Book not found" });
+        }
+
+        if (Array.isArray(book)) {
+            book.forEach(book => {
+                if (book && book.letter) {
+                    book.letterUrl = `${req.protocol}://${req.get('host')}/uploads/letters/${book.letter}`;
+                }
+            });
+        } else {
+            if (book && book.letter) {
                 book.letterUrl = `${req.protocol}://${req.get('host')}/uploads/letters/${book.letter}`;
             }
-        });
+        }
         res.status(200).json(book);
     } catch (error) {
         res.status(500).json({ message: error.message });
