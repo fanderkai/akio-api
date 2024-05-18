@@ -38,14 +38,14 @@ const BookSchema = mongoose.Schema(
             required: true
         },
         activity: {
-            type: String,
-            required: true,
-            default: 0
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Instance',
         },
         conference_type: {
             type: String,
             required: true,
-            default: 0
+            enum: ['Offline', 'Online', 'Hybrid'],
+            default: 'Offline'
         },
         date: {
             type: Date,
@@ -55,23 +55,25 @@ const BookSchema = mongoose.Schema(
         start_time: {
             type: String,
             required: true,
-            default: 0
         },
         end_time: {
             type: String,
             required: true,
+        },
+        room: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room',
             default: 0
         },
         letter: {
-            
             type: String,
             required: true,
-            default: 0
         },
         status: {
             type: String,
             required: true,
-            default: 0
+            enum: ['Disetujui', 'Dibatalkan/Ditolak', 'Diproses'],
+            default: 'Diproses'
         }
     }
 );
