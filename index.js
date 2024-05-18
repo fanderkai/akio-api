@@ -15,10 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 //routes
-app.use("/api/books", bookRoute);
-app.use("/api/rooms", roomRoute);
-app.use("/api/instances", instanceRoute);
-app.use("/api/auth", authRoute);
+app.use("/books", bookRoute);
+app.use("/rooms", roomRoute);
+app.use("/instances", instanceRoute);
+app.use("/auth", authRoute);
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
