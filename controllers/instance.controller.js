@@ -1,5 +1,6 @@
 const Instance = require('../models/instance.model');
 
+// Take GET instances request and response with instances list
 const getInstances = async (req, res) => {
     try {
         const instances = await Instance.find({});
@@ -9,6 +10,7 @@ const getInstances = async (req, res) => {
     }
 }
 
+// Take GET instance id request and response with instance details
 const getInstance = async (req, res) => {
     try {
         const {id} = req.params;
@@ -19,6 +21,7 @@ const getInstance = async (req, res) => {
     }
 }
 
+// Take POST instance object request and response with "instance created" message
 const createInstance = async (req, res) => {
     try {
         const instance = await Instance.create(req.body);
@@ -28,6 +31,7 @@ const createInstance = async (req, res) => {
     }
 }
 
+// Take UPDATE instance object request and response with "instance updated" message, and "instance not found" message
 const updateInstance = async (req, res) => {
     try {
         const {id} = req.params;
@@ -42,6 +46,7 @@ const updateInstance = async (req, res) => {
     }
 }
 
+// Take DELETE instance object request and response with "instance deleted" message, and "instance not found" message
 const deleteInstance = async (req, res) => {
     try {
         const {id} = req.params;
@@ -55,6 +60,7 @@ const deleteInstance = async (req, res) => {
     }
 }
 
+// Export instance controllers
 module.exports = {
     getInstances,
     getInstance,

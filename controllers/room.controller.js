@@ -1,5 +1,6 @@
 const Room = require('../models/room.model');
 
+// Take GET rooms request and response with rooms list
 const getRooms = async (req, res) => {
     try {
         const rooms = await Room.find({});
@@ -15,6 +16,7 @@ const getRooms = async (req, res) => {
     }
 }
 
+// Take GET room id request and response with room details
 const getRoom = async (req, res) => {
     try {
         const {id} = req.params;
@@ -31,6 +33,7 @@ const getRoom = async (req, res) => {
     }
 }
 
+// Take POST room object request and response with "room created" message
 const createRoom = async (req, res) => {
     try {
         const image = req.file ? req.file.filename : null;
@@ -42,6 +45,7 @@ const createRoom = async (req, res) => {
     }
 }
 
+// Take UPDATE room object request and response with "room updated" message, and "room not found" message if it does not exist
 const updateRoom = async (req, res) => {
     try {
         const {id} = req.params;
@@ -58,6 +62,7 @@ const updateRoom = async (req, res) => {
     }
 }
 
+// Take DELETE room object request and response with "room deleted" message, and "room not found" message if it does not exist
 const deleteRoom = async (req, res) => {
     try {
         const {id} = req.params;
@@ -71,6 +76,7 @@ const deleteRoom = async (req, res) => {
     }
 }
 
+// Export room controllers
 module.exports = {
     getRooms,
     getRoom,
