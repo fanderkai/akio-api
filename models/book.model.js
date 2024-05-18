@@ -35,12 +35,12 @@ const BookSchema = mongoose.Schema(
             required: true
         },
         instance: {
-            type: String,
-            required: true
-        },
-        activity: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Instance',
+        },
+        activity: {
+            type: String,
+            required: true
         },
         conference_type: {
             type: String,
