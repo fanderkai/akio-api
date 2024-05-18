@@ -25,15 +25,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(
+    "mongodb+srv://fathanahuni:VxHyczHdBiPi4Ts9@backenddb.mi89dpp.mongodb.net/akioAPI?retryWrites=true&w=majority&appName=BackendDB"
+  )
   .then(() => {
     console.log("Connected to database!");
-    app.listen(process.env.PORT || 3000, () => {
-      console.log("Server is running on port "+ (process.env.PORT || 3000));
+    app.listen(3000, () => {
+      console.log("Server is running on port 3000");
     });
   })
   .catch(() => {
     console.log("Connection failed!");
   });
-
-  module.exports = app;
