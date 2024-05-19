@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment')
 
 function generateUniqueId(name, startDate, startTime, endTime) {
     // Take the first three characters of the name and convert them to upper case
@@ -12,9 +13,12 @@ function generateUniqueId(name, startDate, startTime, endTime) {
     }).replace(/\//g, '');
 
     // Take the hour digits of start hour and end hour
-    const startHour = (startTime.getHours() < 10 ? '0' : '') + startTime.getHours();
-    const endHour = (endTime.getHours() < 10 ? '0' : '') + endTime.getHours();    
+    const startHour = moment(startTime, 'HH:mm').format('HH');
+    const endHour = moment(endTime, 'HH:mm').format('HH')
 
+    if (!startDate.isValid() || !moment(startTime, 'HH:mm').isValid() || !moment(endTime, 'HH:mm').isValid()) {
+        throw new Error('Invalid date or time format');
+    }
     // Combine all with dashes
     const id = `${initials}-${formattedDate}-${startHour}${endHour}`;
     
