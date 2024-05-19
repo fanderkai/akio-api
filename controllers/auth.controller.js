@@ -20,7 +20,7 @@ const logIn = async (req, res) => {
             return res.status(401).json({ message: "Invalid username or password" });
         }
 
-        res.render("Admin Page");
+        res.redirect("/admin-panel");
 
     } catch (error) {
         console.error("Login error:", error);
@@ -31,15 +31,17 @@ const logIn = async (req, res) => {
 //  Take username and password as sign up request
 const signUp = async (req, res) => {
 
-    // Pass username and hasehed password as account object, then redirect to admin page
+    // Pass username and hasehed password as account object
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const account = {
+        const account = new Account({
             username: req.body.username,
             password: hashedPassword
-        }
-        await Account.insertMany([account])
-        res.render("Admin Page");
+        })
+        await account.save();
+
+        // Send a success response
+        res.status(201).json({ message: "Account created successfully" });
     
     // Send error message if there's an unexpected error
     } catch (error) {
@@ -47,17 +49,8 @@ const signUp = async (req, res) => {
     }
 }
 
-// Check if the account's role is admin, if not send "unauthorized access" message
-const isAdmin = (req, res, next) => {
-    if (req.user.role !== 'admin') {
-        return res.status(403).json({ message: "Unauthorized access" });
-    }
-    next();
-};
-
 // Export account controllers
 module.exports = {
     logIn,
-    signUp,
-    isAdmin
+    signUp
 }
