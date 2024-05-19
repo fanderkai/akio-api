@@ -1,5 +1,6 @@
 const express = require('express');
 const moment = require('moment')
+const cors = require('cors');
 const mongoose = require("mongoose");
 const path = require('path');
 
