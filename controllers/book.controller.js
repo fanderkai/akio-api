@@ -1,4 +1,6 @@
 const Book = require('../models/book.model');
+const fs = require('fs').promises;
+const path = require('path');
 
 // Take GET bookings request and response with bookings list
 const getBooks = async (req, res) => {
@@ -58,7 +60,12 @@ const updateBook = async (req, res) => {
     try {
         const {id} = req.params;
         const letter = req.file ? req.file.filename : null;
-        const data = {...req.body, letter};
+        let data 
+        if (letter){
+            data = {...req.body, letter};
+        }else{
+            data = {...req.body};
+        }
         const book = await Book.findByIdAndUpdate(id, data, { new: true });
         if(!book) {
             return res.status(404).json({message: "Booking not found"});
@@ -77,6 +84,11 @@ const deleteBook = async (req, res) => {
         const book = await Book.findByIdAndDelete(id, req.body);
         if(!book) {
             return res.status(404).json({message: "Booking not found"});
+        }
+        if(book.letter) {
+            const filePath = path.join(__dirname, './../uploads/letters', book.letter);
+            console.log(filePath)
+            await fs.unlink(filePath); // Delete the file
         }
         res.status(200).json({ message: 'Booking deleted.' });
     } catch (error) {
