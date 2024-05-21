@@ -5,7 +5,6 @@ const router = express.Router();
 const {getBooks, getBook, createBook, updateBook, deleteBook} = require('../controllers/book.controller.js');
 const upload = require('../config/multer.config.js');
 
-
 router.get('/', getBooks);
 router.get('/:id', getBook);
 router.post("/", upload.single('letter'), createBook);
