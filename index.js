@@ -1,4 +1,6 @@
 const express = require('express');
+const moment = require('moment')
+const cors = require('cors');
 const mongoose = require("mongoose");
 const path = require('path');
 
@@ -11,6 +13,12 @@ const app = express();
 
 
 //middleware
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
