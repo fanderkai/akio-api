@@ -15,10 +15,11 @@ function generateUniqueId(name, startDate, startTime, endTime) {
     // Take the hour digits of start hour and end hour
     const startHour = moment(startTime, 'HH:mm').format('HH');
     const endHour = moment(endTime, 'HH:mm').format('HH')
-
-    if (!startDate.isValid() || !moment(startTime, 'HH:mm').isValid() || !moment(endTime, 'HH:mm').isValid()) {
-        throw new Error('Invalid date or time format');
+    console.log(startDate)
+    if (!moment(startTime, 'HH:mm').isValid() || !moment(endTime, 'HH:mm').isValid()) {
+        throw new Error('Invalid time format');
     }
+    
     // Combine all with dashes
     const id = `${initials}-${formattedDate}-${startHour}${endHour}`;
     
