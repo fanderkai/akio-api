@@ -78,8 +78,8 @@ const BookSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
-            enum: ['Disetujui', 'Dibatalkan', 'Ditolak', 'Diproses'],
-            default: 'Diproses'
+            enum: ['Disetujui', 'Dibatalkan', 'Ditolak', 'Divalidasi', 'Rescheduled'],
+            default: 'Divalidasi'
         }
     }
 );
